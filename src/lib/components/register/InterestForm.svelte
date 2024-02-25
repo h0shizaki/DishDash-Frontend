@@ -1,16 +1,19 @@
 <script lang="ts">
     export let lockedState: boolean = true;
-
+    let isComplete:boolean = false;
 
     export let onSubmit = async function() {
         console.log("I'm the handleOnSubmit() in App.svelte")
+        isComplete = trueCount >= 3
+    }
+
+    if(isComplete){
+        lockedState = isComplete
     }
 
     let categories = [
         {"category": "Beginner Cook", "selected": false},
         {"category": "Kid Friendly", "selected": false},
-        {"category": "South American", "selected": false},
-        {"category": "Cheese", "selected": false},
         {"category": "Easy", "selected": false},
         {"category": "Lunch/Snacks", "selected": false},
         {"category": "Breakfast", "selected": false},
@@ -19,10 +22,8 @@
         {"category": "Brunch", "selected": false},
         {"category": "Fruit", "selected": false},
         {"category": "Inexpensive", "selected": false},
-        {"category": "Toddler Friendly", "selected": false},
         {"category": "European", "selected": false},
         {"category": "Low Cholesterol", "selected": false},
-        {"category": "Low Protein", "selected": false},
         {"category": "Healthy", "selected": false},
         {"category": "Quick", "selected": false},
         {"category": "Dessert", "selected": false},
@@ -31,14 +32,7 @@
         {"category": "Lunch", "selected": false},
         {"category": "Vegetarian", "selected": false},
         {"category": "Asian", "selected": false},
-        {"category": "Mexican", "selected": false},
-        {"category": "American", "selected": false},
         {"category": "Italian", "selected": false},
-        {"category": "French", "selected": false},
-        {"category": "Indian", "selected": false},
-        {"category": "Mediterranean", "selected": false},
-        {"category": "Chinese", "selected": false},
-        {"category": "Japanese", "selected": false}
     ]
 
     const trueCount = categories.reduce((count, category) => {
@@ -54,7 +48,7 @@
         Select at least 3 topics which you feel interested in.
     </span>
     <div class="w-2/3 mx-auto mt-5">
-            <div class="grid grid-cols-4">  
+            <div class="grid grid-cols-3">
                 {#each  categories as category }
                 <ul class="mx-2 mt-2 ">
                     <li>
