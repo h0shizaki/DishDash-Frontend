@@ -33,28 +33,24 @@
 
 	{#if !isComplete}
 	<form on:submit={handleSubmit} >
-		<div class="flex flex-col w-2/3 mx-auto space-y-5 mt-2">
-			<div class="grid grid-cols-2 gap-6">
+		<div class="flex flex-col w-full lg:w-2/3 mx-auto space-y-3 lg:space-y-5  mt-2">
+			<div class="grid lg:grid-cols-2 gap-6">
 				<div class="relative z-0 w-full mb-2 group">
 					<label for="firstname" class="block text-md font-medium text-gray-900 dark:text-white">Firstname</label>
 					<input on:change={handleChange} bind:value={$form.firstname}  name="firstname" type="text" placeholder="John"  id="firstname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 					{#if $errors.firstname}
-						<aside class="alert variant-filled-error mt-1">
-							<div class="alert-message">
-								<p>{$errors.firstname}</p>
-							</div>
-						</aside>
+						<div class="text-red-600">
+							<p>{$errors.firstname}</p>
+						</div>
 					{/if}
 				</div>
 				<div class="relative z-0 w-full mb-2 group">
 					<label for="lastname" class="block text-md font-medium text-gray-900 dark:text-white">Lastname</label>
 					<input on:change={handleChange} bind:value={$form.lastname} name="lastname" type="text" placeholder="Doe"  id="lastname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 					{#if $errors.lastname}
-						<aside class="alert variant-filled-error mt-1">
-							<div class="alert-message">
-								<p>{$errors.lastname}</p>
-							</div>
-						</aside>
+						<div class="text-red-600">
+							<p>{$errors.lastname}</p>
+						</div>
 					{/if}
 				</div>
 			</div>
@@ -63,24 +59,20 @@
 					<label for="email" class="block text-md font-medium text-gray-900 dark:text-white">Email</label>
 					<input on:change={handleChange} bind:value={$form.email} name="email" type="text" placeholder="email"  id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 					{#if $errors.email}
-						<aside class="alert variant-filled-error mt-1">
-							<div class="alert-message">
-								<p>{$errors.email}</p>
-							</div>
-						</aside>
+						<div class="text-red-600">
+							<p>{$errors.email}</p>
+						</div>
 					{/if}
 				</div>
 			</div>
-			<div class="grid grid-cols-2 gap-6">
+			<div class="grid lg:grid-cols-2 gap-6">
 				<div class="py-1">
 					<label for="username" class="block text-md font-medium text-gray-900 dark:text-white">Username</label>
 					<input on:change={handleChange} bind:value={$form.username} name="username" type="text" placeholder="Username"  id="username" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 					{#if $errors.username}
-						<aside class="alert variant-filled-error mt-1">
-							<div class="alert-message">
-								<p>{$errors.username}</p>
-							</div>
-						</aside>
+						<div class="text-red-600">
+							<p>{$errors.username}</p>
+						</div>
 					{/if}
 				</div>
 
@@ -93,34 +85,28 @@
 						<option value="{Gender.OTHERS}">Others</option>
 					</select>
 					{#if $errors.gender}
-						<aside class="alert variant-filled-error mt-1">
-							<div class="alert-message">
-								<p>{$errors.gender}</p>
-							</div>
-						</aside>
+						<div class="text-red-600">
+							<p>{$errors.gender}</p>
+						</div>
 					{/if}
 				</div>
 			</div>
 			<div class="py-1 w-full">
 				<label for="password" class="block text-md font-medium text-gray-900 dark:text-white">Password</label>
 				<input on:change={handleChange} bind:value={$form.password} type="password" id="password" placeholder="Password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-			</div>
-			{#if $errors.password}
-				<aside class="alert variant-filled-error mt-1">
-					<div class="alert-message">
+				{#if $errors.password}
+					<div class="text-red-600">
 						<p>{$errors.password}</p>
 					</div>
-				</aside>
-			{/if}
+				{/if}
+			</div>
 			<div class="py-1 w-full">
 				<label for="password" class="block text-md font-medium text-gray-900 dark:text-white">Confirm-Password</label>
 				<input on:change={handleChange} bind:value={$form.confirm_password} type="password" id="confirm_password" placeholder="Password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
 				{#if $errors.confirm_password}
-					<aside class="alert variant-filled-error mt-1">
-						<div class="alert-message">
-							<p>{$errors.confirm_password}</p>
-						</div>
-					</aside>
+					<div class="text-red-600">
+						<p>{$errors.confirm_password}</p>
+					</div>
 				{/if}
 			</div>
 			<div class="flex flex-row items-center">

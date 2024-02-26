@@ -47,21 +47,20 @@
     <span class="h4 font-medium my-2 ">
         Select at least 3 topics which you feel interested in.
     </span>
-    <div class="w-2/3 mx-auto mt-5">
-            <div class="grid grid-cols-3">
+    <div class="w-full lg:w-5/6 mx-auto mt-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3" >
                 {#each  categories as category }
                 <ul class="mx-2 mt-2 ">
                     <li>
                         <input type="checkbox" id="{category.category}" value="{category.selected}" class="hidden peer" required="">
-                        <label for="{category.category}" class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">                           
+                        <label for="{category.category}" class="inline-flex items-center justify-between w-full p-3 text-gray-500 bg-white border-2 border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 peer-checked:border-blue-600 hover:text-gray-600 dark:peer-checked:text-gray-300 peer-checked:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
                             <div class="block w-full">
-                                <div class="w-full text-lg font-semibold">{category.category}</div>
+                                <div class="w-full text-sm font-semibold">{category.category}</div>
                             </div>
                         </label>
                     </li>
                 </ul>	
                 {/each}		
             </div>
-
     </div>
 </form>

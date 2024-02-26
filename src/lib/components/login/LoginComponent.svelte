@@ -14,10 +14,10 @@
 	})
 </script>
 <form on:submit={handleSubmit} >
-	<div class="flex flex-col items-start space-y-5 mt-8">
-		<h2 class="h2 font-bold text-gray-700">Login</h2>
-		<div class="py-1 w-1/2">
-			<label for="username" class="block text-md font-medium text-gray-900 dark:text-white">Username</label>
+	<div class="flex flex-col p-2">
+		<h2 class="h2 font-semibold text-gray-700">Login</h2>
+		<div class="py-1 w-full">
+			<label for="username" class="block text-md text-gray-900">Username</label>
 			<input
 					type="text"
 					name="username"
@@ -28,14 +28,12 @@
 					bind:value={$form.username}
 			/>
 			{#if $errors.username}
-				<aside class="alert variant-filled-error mt-1 ">
-					<div class="alert-message">
-						<p>{$errors.username}</p>
-					</div>
-				</aside>
+				<div class="text-red-600">
+					<p>{$errors.username}</p>
+				</div>
 			{/if}
 		</div>
-		<div class="py-1 w-1/2">
+		<div class="py-1 w-full">
 			<label for="password" class="block text-md font-medium text-gray-900 dark:text-white">Password</label>
 			<input
 					type="password"
@@ -47,15 +45,13 @@
 					bind:value={$form.password}
 			/>
 			{#if $errors.password}
-				<aside class="alert variant-filled-error mt-1">
-					<div class="alert-message">
-						<p>{$errors.password}</p>
-					</div>
-				</aside>
+				<div class="text-red-600">
+					<p>{$errors.password}</p>
+				</div>
 			{/if}
 		</div>
 
-		<div class='flex flex-col items-center w-1/2'>
+		<div class='flex flex-col items-center w-full'>
 			<div class="block my-2">
 				Don't have an account? <a href="/register" class="text-blue-400 decolartion">Register</a>
 			</div>

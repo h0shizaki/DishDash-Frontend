@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../app.pcss';
+	import '../style.css';
 	import { AppShell } from '@skeletonlabs/skeleton';
 	import Header from '$lib/components/header/Header.svelte';
 	import { Modal, getModalStore } from '@skeletonlabs/skeleton';

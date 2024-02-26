@@ -14,7 +14,7 @@ let isRegistered = false;
 <Stepper on:complete={onCompleteHandler} >
 	<Step>
 		<svelte:fragment slot="header">Discover the best food & drink recipes</svelte:fragment>
-		<div class="relative top-0  w-1/3 rounded-sm mx-auto">
+		<div class="relative hidden lg:block top-0  w-1/3 rounded-sm mx-auto">
             <img src="/images/hero.png" class="w-auto" alt="Hero Image"/>
         </div>
 		<FeatureTab />
