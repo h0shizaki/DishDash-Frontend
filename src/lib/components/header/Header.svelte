@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { Avatar } from '@skeletonlabs/skeleton';
+    import {authstore, user} from "$lib/stores/auth";
+    import {goto} from "$app/navigation";
+    import {Avatar} from "@skeletonlabs/skeleton";
 
-    export let isLogin = true;
-
+    let isLoggedIn = (authstore.isLoggedIn)
 </script>
-
 <nav class="bg-white sticky w-full top-0 z-10 start-0 border-b border-gray-200 mb-3 lg:pb-1">
     <div class="w-full flex flex-wrap items-center justify-between p-1.5 lg:pr-2.5">
         <div class="items-center justify-between w-full flex order-1">
@@ -14,18 +14,23 @@
                         DishDash
                     </a>
                 </li>
-                {#if isLogin}
+                {#if $isLoggedIn}
                     <li class="flex flex-col justify-center">
-                        <a href="#" class="text-gray-900 rounded hover:text-gray-600">
+                        <a href="/bookmark" class="text-gray-900 rounded hover:text-gray-600">
                             Bookmark
                         </a>
                     </li>
                 {/if}
             </ul>
-            {#if isLogin}
-<!--                <a href="#" class="flex flex-row space-x-3 my-auto items-center" >-->
-<!--                    <Avatar initials="KK" background="bg-primary-500 w-10 mx-2" /> Kan Katpark-->
-<!--                </a>-->
+            {#if $user != null}
+                <div class="flex flex-row space-x-4">
+                    <a href="#" class="flex flex-row space-x-3 my-auto items-center" >
+                        {$user.username}
+                    </a>
+                    <a href="#" on:click={() => {authstore.logout() ; goto('/')}} class="flex items-center space-x-6 rtl:space-x-reverse ">
+                        <button type="button" class="btn variant-filled-tertiary btn-sm">Sign Out</button>
+                    </a>
+                </div>
             {:else}
                 <a href="/login" class="flex items-center space-x-6 rtl:space-x-reverse ">
                     <button type="button" class="btn variant-filled-tertiary btn-sm">Sign In</button>

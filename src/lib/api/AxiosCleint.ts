@@ -10,26 +10,5 @@ const apiClient: AxiosInstance = axios.create({
   }
 })
 
-apiClient.interceptors.request.use(
-  (req) => {
-    const token = localStorage.getItem('access_token')
-    if (token) {
-      req.headers['Authorization'] = `Bearer ${token}`
-    }
-    return req
-  },
-  (err) => {
-    return Promise.reject(err)
-  }
-)
-
-apiClient.interceptors.response.use(
-  (res) => {
-    return res
-  },
-  (err: AxiosError) => {
-    console.error(err)
-  }
-)
 
 export default apiClient
