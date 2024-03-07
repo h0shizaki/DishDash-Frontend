@@ -8,7 +8,7 @@
     <img src="/images/techny-something-went-wrong.png" alt="Error" width="328"/>
     <span class="text-blue-500 font-semibold text-2xl">{placeholder}</span>
     {#if message}
-        <div class="card variant-filled-surface">
+        <div class="card variant-filled-surface p-1">
             {message}
         </div>
     {/if}

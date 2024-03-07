@@ -1,7 +1,7 @@
 import { Gender } from './Gender'
 
 export interface User {
-    id?: string
+    _id?: string
     username: string
     email: string
     firstname: string

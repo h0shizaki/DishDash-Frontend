@@ -13,18 +13,12 @@
 			password: ""
 		},
 		onSubmit: async (values) =>  {
-			// console.log(values)
 			try{
-				const res = await authstore.login(values.username, values.password)
-				// console.log(res)
-				authstore.setUser(res)
+				await authstore.login(values.username, values.password)
 				await goto('/')
 			}catch(e){
 				console.log(e)
 			}
-
-			// const res = await AuthService.login(values.username, values.password)
-			// console.log(res.body.data.user)
 		}
 	})
 </script>

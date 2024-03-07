@@ -12,4 +12,8 @@ const register = (user : User): Promise<AxiosResponse> => {
 
 }
 
-export default { login, register }
+const update = (_id : string, user: User):  Promise<AxiosResponse> => {
+    return apiClient.put<User>('/api/auth/user/', {...user, _id})
+}
+
+export default { login, register, update }

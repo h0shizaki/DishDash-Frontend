@@ -4,6 +4,8 @@
 	import {createForm} from "svelte-forms-lib";
 	import Spinner from "$lib/components/ui/Spinner.svelte";
 	import Error from "$lib/components/ui/Error.svelte";
+	import {authstore} from "$lib/stores/auth";
+	import type {User} from "$lib/models/User";
     export let lockedState: boolean = true;
 
 	export let isComplete: boolean = false;
@@ -20,10 +22,29 @@
 			gender: undefined,
 		},
 		validationSchema: RegisterSchema,
-		onSubmit: values =>  {
-			console.log(values)
-			isComplete =true
-			lockedState = false
+		onSubmit: async(values) =>  {
+			isLoading = true
+			const user: User = {
+				email: values.email,
+				firstname: values.firstname,
+				gender: values.gender,
+				interestedCategory: [],
+				lastname: values.lastname,
+				password: values.password,
+				username: values.username
+			}
+			try{
+				await authstore.register(user)
+				isComplete =true
+				lockedState = false
+			}catch(e){
+				console.log(e)
+				// if(e instanceof Error){
+				isError = true
+				isComplete = false
+				// }
+			}
+			isLoading = false
 		}
 	})
 
@@ -31,7 +52,13 @@
 </script>
 <div class="container-full flex flex-col justify-center p-6 shadow-sm rounded-sm">
 
-	{#if !isComplete}
+	{#if isComplete}
+		<span class="h4 text-blue-500 font-bold text-xl">Almost get done!</span>
+	{:else if isLoading}
+		<Spinner percentage="{undefined}"  variant="normal" placeholder="We're processing please wait a moment."/>
+	{:else if isError}
+		<Error />
+	{:else}
 	<form on:submit={handleSubmit} >
 		<div class="flex flex-col w-full lg:w-2/3 mx-auto space-y-3 lg:space-y-5  mt-2">
 			<div class="grid lg:grid-cols-2 gap-6">
@@ -117,21 +144,6 @@
 			</div>
 		</div>
 	</form>
-	{:else if isLoading}
-		<Spinner percentage="{undefined}"  variant="normal" placeholder="We're processing please wait a moment."/>
-	{:else if isError}
-		<Error />
-	{:else }
-		<div class="flex flex-row justify-center items-center space-x-2 mb-5">
-			<div class="py-1 w-1/2">
-				<img src="/images/post.png" alt="Success" class="w-100" />
-			</div>
-			<div class="py-1 w-1/2 mb-16">
-				<span class="text-blue-500 h4 font-semibold"><span class="font-bold h3">Welcome</span> to our community! We're thrilled to have you join us. 🎉</span>
-			</div>
-		</div>
 	{/if}
-
-
 
 </div>
