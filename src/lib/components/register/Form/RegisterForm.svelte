@@ -6,8 +6,10 @@
 	import Error from "$lib/components/ui/Error.svelte";
 	import {authstore} from "$lib/stores/auth";
 	import type {User} from "$lib/models/User";
+	import {Alert} from "$lib/components/ui/alert";
     export let lockedState: boolean = true;
 
+	let errorMessage = ''
 	export let isComplete: boolean = false;
 	let isLoading: boolean = false;
 	let isError: boolean = false;
@@ -37,14 +39,22 @@
 				await authstore.register(user)
 				isComplete =true
 				lockedState = false
+				isLoading = false
+
 			}catch(e){
-				console.log(e)
+				console.log(e.response.data.body )
+				if(e.response.data.body.message === "Duplicate User." ){
+					isError = false
+					isLoading = false
+					errorMessage = "Duplicate Username or Email."
+					return
+				}
 				// if(e instanceof Error){
 				isError = true
 				isComplete = false
+				isLoading = false
 				// }
 			}
-			isLoading = false
 		}
 	})
 
@@ -59,6 +69,9 @@
 	{:else if isError}
 		<Error />
 	{:else}
+	{#if errorMessage}
+		<Alert message={errorMessage} title="FAILED" variant="variant-filled-error" ></Alert>
+	{/if}
 	<form on:submit={handleSubmit} >
 		<div class="flex flex-col w-full lg:w-2/3 mx-auto space-y-3 lg:space-y-5  mt-2">
 			<div class="grid lg:grid-cols-2 gap-6">

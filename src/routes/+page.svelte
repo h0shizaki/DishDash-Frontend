@@ -2,6 +2,7 @@
     import { Avatar } from '@skeletonlabs/skeleton';
     import {CardSkeleton} from '$lib/components/ui/skeleton'
     import {Card, CardHeader, CardContent, CardFooter} from '$lib/components/ui/card'
+    import {DropDownMenu} from '$lib/components/ui/dropdown-menu'
 </script>
 
 <svelte:head>
@@ -12,22 +13,23 @@
     Hello world!
 
 </h1>
+<!--<DropDownMenu />-->
 
-<Card className="w-48">
-    <CardHeader>
-            <div class="placeholder animate-pulse w-full h-40" >
-            </div>
+<!--<Card className="w-48">-->
+<!--    <CardHeader>-->
+<!--            <div class="placeholder animate-pulse w-full h-40" >-->
+<!--            </div>-->
 
-    </CardHeader>
-    <CardContent>
-        <div class="grid grid-cols-1 gap-1">
-            <div class="placeholder" />
-            <div class="placeholder" />
-            <div class="placeholder" />
-            <div class="placeholder" />
-        </div>
-    </CardContent>
-</Card>
+<!--    </CardHeader>-->
+<!--    <CardContent>-->
+<!--        <div class="grid grid-cols-1 gap-1">-->
+<!--            <div class="placeholder" />-->
+<!--            <div class="placeholder" />-->
+<!--            <div class="placeholder" />-->
+<!--            <div class="placeholder" />-->
+<!--        </div>-->
+<!--    </CardContent>-->
+<!--</Card>-->
 <!--<Avatar initials="KK" background="bg-primary-500" />-->
-<CardSkeleton className="w-48" />
+<!--<CardSkeleton className="w-48" />-->
 

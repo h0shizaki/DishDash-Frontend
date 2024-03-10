@@ -4,7 +4,14 @@
 	import {authstore} from "$lib/stores/auth";
 	import Spinner from "$lib/components/ui/Spinner.svelte";
 	import {goto} from "$app/navigation";
-
+	import { onMount } from 'svelte';
+	import {Alert} from "$lib/components/ui/alert";
+	let message = '';
+	onMount( () => {
+		if(history){
+			message = history.state["sveltekit:states"].message
+		}
+	})
 
 	const {form , isSubmitting ,errors, state, handleChange, handleSubmit} = createForm({
 		validationSchema: LoginSchema,
@@ -18,6 +25,14 @@
 				await goto('/')
 			}catch(e){
 				console.log(e)
+				if(e.response?.status === 401){
+				message = 'Incorrect username or password'
+				return goto('/login', {state: {message: 'Incorrect username or password' }})
+				}else {
+					return  goto('/network-error')
+				}
+
+
 			}
 		}
 	})
@@ -26,6 +41,9 @@
 	<Spinner percentage="{undefined}"  variant="normal" placeholder="We're processing please wait a moment."/>
 {:else }
 	<form on:submit={handleSubmit} >
+		{#if message}
+			<Alert message={message} title="FAILED" variant="variant-filled-error" ></Alert>
+		{/if}
 		<div class="flex flex-col p-2">
 			<h2 class="h2 font-semibold text-gray-700">Login</h2>
 			<div class="py-1 w-full">
