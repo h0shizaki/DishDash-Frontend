@@ -1,3 +1,3 @@
 import DropDownMenu from './dropdown-menu.svelte'
-
-export {DropDownMenu}
+import DropDownMenuButton from  './dropdown-menu-button.svelte'
+export {DropDownMenu, DropDownMenuButton}

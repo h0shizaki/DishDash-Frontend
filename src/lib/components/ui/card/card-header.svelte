@@ -1,2 +1,4 @@
-
-<header class="card-header"><slot /></header>
+<script lang="ts">
+    export let className = ''
+</script>
+<header class="card-header {className}"><slot /></header>

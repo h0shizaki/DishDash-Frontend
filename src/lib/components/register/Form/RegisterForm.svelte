@@ -69,10 +69,10 @@
 	{:else if isError}
 		<Error />
 	{:else}
-	{#if errorMessage}
-		<Alert message={errorMessage} title="FAILED" variant="variant-filled-error" ></Alert>
-	{/if}
 	<form on:submit={handleSubmit} >
+		{#if errorMessage}
+			<Alert message={errorMessage} title="FAILED" variant="variant-filled-error" ></Alert>
+		{/if}
 		<div class="flex flex-col w-full lg:w-2/3 mx-auto space-y-3 lg:space-y-5  mt-2">
 			<div class="grid lg:grid-cols-2 gap-6">
 				<div class="relative z-0 w-full mb-2 group">
