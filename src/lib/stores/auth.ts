@@ -2,6 +2,7 @@ import {get, derived} from 'svelte/store';
 import {writable} from "@macfja/svelte-persistent-store";
 import type {User} from "$lib/models/User";
 import AuthService from "$lib/api/AuthService";
+import {goto} from "$app/navigation";
 
 export const user = writable<User|null>("user",null)
 export const token = writable<string|null>("token", null)
@@ -26,12 +27,13 @@ async function register(registerUser: User) {
     return res.data.body.user
 }
 
-function logout() {
+async function logout() {
     console.log('Logged out')
     token.set(null)
     user.set(null)
     token.set(null)
     user.set(null)
+    await goto('/' , {state: {message: 'Sign out success!'}})
 }
 
 function refresh(user1: User|null , token1 : string|null) {

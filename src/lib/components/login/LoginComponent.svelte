@@ -22,7 +22,7 @@
 		onSubmit: async (values) =>  {
 			try{
 				await authstore.login(values.username, values.password)
-				await goto('/')
+				await goto('/home')
 			}catch(e){
 				console.log(e)
 				if(e.response?.status === 401){

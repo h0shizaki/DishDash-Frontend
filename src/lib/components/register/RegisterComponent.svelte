@@ -5,9 +5,10 @@ import FeatureTab from './Tab/FeatureTab.svelte';
 import RegisterForm from './Form/RegisterForm.svelte';
 import InterestForm from './InterestForm.svelte';
 
-function onCompleteHandler(): void { goto("/") }
+function onCompleteHandler(): void { goto("/home") }
 let registerLockState: boolean = true
 let isRegistered = false;
+let interestedLockState : boolean = true
 </script>
 
 
@@ -23,9 +24,8 @@ let isRegistered = false;
 		<svelte:fragment slot="header">Registration Form</svelte:fragment>
 		<RegisterForm bind:lockedState={registerLockState} bind:isComplete={isRegistered}/>
 	</Step>
-	<Step on:back={() => {console.log("Can not go back")}}>
-		<svelte:fragment slot="header">What are your interests</svelte:fragment>
-		<InterestForm />
+	<Step locked={interestedLockState} on:back={() => {console.log("Can not go back")}}>
+		<InterestForm bind:lockedState={interestedLockState}  />
 	</Step>
 
 </Stepper>

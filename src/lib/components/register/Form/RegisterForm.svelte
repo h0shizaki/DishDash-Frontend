@@ -7,6 +7,7 @@
 	import {authstore} from "$lib/stores/auth";
 	import type {User} from "$lib/models/User";
 	import {Alert} from "$lib/components/ui/alert";
+	import HeroLanding from "$lib/components/ui/HeroLanding.svelte"
     export let lockedState: boolean = true;
 
 	let errorMessage = ''
@@ -63,7 +64,9 @@
 <div class="container-full flex flex-col justify-center p-6 shadow-sm rounded-sm">
 
 	{#if isComplete}
-		<span class="h4 text-blue-500 font-bold text-xl">Almost get done!</span>
+<!--		<span class="h4 text-blue-500 font-bold text-xl">Almost get done!</span>-->
+		<HeroLanding title="Almost get done!" body="A few step to go"  image="/images/Hamburger-pana.png"></HeroLanding>
+
 	{:else if isLoading}
 		<Spinner percentage="{undefined}"  variant="normal" placeholder="We're processing please wait a moment."/>
 	{:else if isError}

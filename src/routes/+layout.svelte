@@ -15,7 +15,7 @@
 
 <Modal></Modal>
 
-<AppShell>
+<AppShell >
 	<svelte:fragment slot="header">
 		<Header></Header>
 	</svelte:fragment>
@@ -27,4 +27,5 @@
 		font-family: 'Roboto', sans-serif;
 		font-size: 18px;
 	}
+	html, body { @apply h-full overflow-hidden; }
 </style>

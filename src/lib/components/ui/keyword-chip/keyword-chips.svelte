@@ -9,7 +9,9 @@
 
     {#if keywords.length > 0}
         {#each keywords as keyword}
-            <Chip title="{keyword}" variant="variant-ghost-tertiary"/>
+            <a href="#search={keyword}">
+                <Chip title="{keyword}" variant="variant-ghost-tertiary"/>
+            </a>
         {/each}
     {/if}
 
