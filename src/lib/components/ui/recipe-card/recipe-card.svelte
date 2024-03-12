@@ -3,16 +3,29 @@
     import {Card, CardContent, CardHeader} from "$lib/components/ui/card";
     import {KeywordsChip} from '$lib/components/ui/keyword-chip'
     import type {Recipe} from "$lib/models/Recipe";
+    import {CardSkeleton} from "$lib/components/ui/skeleton"
 
+    export let isDisabled = false
     export let recipe: Recipe;
     const action = () => {
         console.log(recipe._id)
+        // TODO: Update user behaviour on server
+        isDisabled = true;
     }
 
 </script>
 
-<!--TODO: disabled card-->
-<Card className="w-64 h-full block">
+<Card className="w-64 h-full relative">
+    {#if isDisabled}
+        <div class="absolute h-full w-full bg-black/90 z-20 ">
+            <!--{text}-->
+            <span class="bg-black w-full text-white block text-center font-semibold py-3">You've removed this recipe.</span>
+            <span class="absolute w-full bottom-1/2 mx-auto text-center text-blue-500 decoration underline cursor-pointer" on:click={() => {isDisabled = !isDisabled}}>
+                undo
+            </span>
+
+        </div>
+    {/if}
 
     <DropDownMenu btnClass="float-right p-2 relative z-10">
         <DropDownMenuButton title="Do not interested" on:action={action}
@@ -40,3 +53,4 @@
         </CardContent>
     </a>
 </Card>
+

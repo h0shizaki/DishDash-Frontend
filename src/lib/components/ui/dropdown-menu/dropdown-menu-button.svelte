@@ -14,5 +14,5 @@
 
 
 
-<button id="wont-close" class="btn {variant}" on:click={action}>{title}</button>
+<button id="wont-close" class="btn {variant} w-full" on:click={action}>{title}</button>
 

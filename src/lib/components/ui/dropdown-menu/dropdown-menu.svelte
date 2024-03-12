@@ -25,7 +25,7 @@
 </button>
 
 <div class="card p-4 max-w-sm z-10" data-popup="popupClick">
-    <div class="grid grid-cols-1 gap-2">
+    <div class="grid grid-cols-1 gap-2 w-36">
         <slot />
         <button id="will-close" class="btn variant-ghost">Close</button>
     </div>
