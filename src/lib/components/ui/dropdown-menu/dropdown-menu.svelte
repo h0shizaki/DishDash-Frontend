@@ -3,6 +3,7 @@
     import type { PopupSettings } from '@skeletonlabs/skeleton';
     import {Icons} from '$lib/components/ui/icon'
 
+
     export let popupClick: PopupSettings = {
         event: 'click',
         target: 'popupClick',
@@ -24,7 +25,7 @@
     {/if}
 </button>
 
-<div class="card p-4 max-w-sm z-10" data-popup="popupClick">
+<div class="card p-4 max-w-sm z-10" data-popup="{popupClick.target}">
     <div class="grid grid-cols-1 gap-2 w-36">
         <slot />
         <button id="will-close" class="btn variant-ghost">Close</button>
