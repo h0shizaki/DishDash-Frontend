@@ -21,7 +21,7 @@
 
 </script>
 
-<Card className="w-64 h-full relative">
+<Card className="w-64 mx-auto my-2 h-full relative">
     {#if isDisabled}
         <div class="absolute h-full w-full bg-black/90 z-20 ">
             <!--{text}-->
@@ -37,7 +37,7 @@
         <DropDownMenuButton title="Do not interested" on:action={action}
                             variant="variant-ghost-error"></DropDownMenuButton>
     </DropDownMenu>
-    <a href="#">
+    <a href="recipe/{recipe._id}">
         <CardHeader className="w-64 p-0 top-0 relative h-48">
             <div class="w-full h-32 absolute">
                 <img class="object-cover h-48 w-96 rounded-sm" src="{recipe.Images[0]}" width="64" height="32"
@@ -46,7 +46,7 @@
         </CardHeader>
         <CardContent className="w-64 block h-64">
             <article class="prose">
-                <p class="h3 m-0 p-1 font-semibold">{recipe.Name}</p>
+                <p class="h3 m-0 p-1 font-semibold">{recipe.Name.split(' ').slice(0, 5).join(' ')}</p>
                 <p class="p-1 mt-1">
                     {#if recipe.Description.length >= 100}
                         {recipe.Description.trim().slice(0, 90)}
