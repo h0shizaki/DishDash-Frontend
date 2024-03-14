@@ -6,7 +6,8 @@ import {
     ChevronRight,
     Bookmark,
     Star,
-    StarHalf
+    StarHalf,
+    Search
 } from 'lucide-svelte'
 
 export type Icon = LucideIcon
@@ -18,5 +19,6 @@ export const Icons = {
     Heart: Heart,
     Bookmark: Bookmark,
     Star: Star,
-    StarHalf: StarHalf
+    StarHalf: StarHalf,
+    Search: Search
 }

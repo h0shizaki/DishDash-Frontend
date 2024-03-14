@@ -6,7 +6,8 @@
     import Spinner from "$lib/components/ui/Spinner.svelte";
     import Error from "$lib/components/ui/Error.svelte";
     import {onMount} from "svelte";
-
+    import SearchBar from '$lib/components/ui/Searchbar.svelte'
+    import {page} from "$app/stores";
     let isLoading = true
     let isError = false
     let isStreaming = false
@@ -15,10 +16,14 @@
     let next: () => Promise<void>;
     export let data: HomePage;
 
+    let query = '';
+
+
     onMount(async () => {
         recipes = [...data.recipes]
         isError = data.isError
         isLoading = data.isLoading
+        query = $page.url.searchParams.get('query')
 
         next = async () => {
             isStreaming = true
@@ -28,6 +33,10 @@
             isStreaming = false
         }
     })
+
+    const onSearch = async (e) => {
+        console.log(e)
+    }
 </script>
 
 
@@ -40,7 +49,8 @@
 {:else if isError}
     <Error placeholder="Sorry, we are facing network error." message="Please try again later."/>
 {:else}
-    <!--<h3>Let's explore your next dishes</h3>-->
+    <span class="h3 p-4 my-5 text-indigo-600 font-semibold">Let's explore your next dishes</span>
+    <SearchBar on:search={onSearch} {query} />
     <!--<button on:click={next}>TEST</button>-->
     <RecipeCards recipes={recipes}/>
 
