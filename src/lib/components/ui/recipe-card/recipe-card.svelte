@@ -41,7 +41,7 @@
     <a data-sveltekit-reload href="/recipe/{recipe._id}">
         <CardHeader className="w-64 p-0 top-0 relative h-48">
             <div class="w-full h-32 absolute">
-                <img class="object-cover h-48 w-96 rounded-sm" src="{recipe.Images[0]}" width="64" height="32"
+                <img class="object-cover h-48 w-96 rounded-sm" src="{recipe.Images[0] }" height="32"
                      alt="dish image"/>
             </div>
         </CardHeader>

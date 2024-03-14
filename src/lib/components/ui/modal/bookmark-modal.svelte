@@ -12,13 +12,14 @@
 
     // Form Data
     const formData = {
-        // name: '',
+        name: '',
         rating: 1,
     };
 
     // We've created a custom submit function to pass the response and close the modal.
     function onFormSubmit(): void {
-        if ($modalStore[0].response) $modalStore[0].response({formData, selectedFolders} );
+        // if ($modalStore[0].response) $modalStore[0].response({formData, selectedFolders} );
+        if ($modalStore[0].response) $modalStore[0].response(formData);
         modalStore.close();
     }
 
@@ -38,8 +39,8 @@
         <form class="modal-form {cForm}">
             <label class="label">
                 <span>Folder name</span>
-<!--                <input class="input" type="text" bind:value={formData.name} placeholder="Enter name..."/>-->
-                <InputChip bind:inputChipList={selectedFolders} userFolders={userCreatedFolder} />
+                <input class="input" type="text" bind:value={formData.name} placeholder="Enter name..."/>
+<!--                <InputChip bind:inputChipList={selectedFolders} userFolders={userCreatedFolder} />-->
             </label>
             <label class="label">
                 <span>Rating</span>

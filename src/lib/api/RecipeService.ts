@@ -9,4 +9,7 @@ const recipe = async (recipeId: string) => {
     return  apiClient.get(`/recipe/${recipeId}`)
 }
 
-export default {allRecipes, recipe}
+const search = async (query: string, pageSize = 10, start = 0) => {
+    return apiClient.get(`search_recipe?query=${query}&search_size=300&start=${start}&limit=${pageSize}`)
+}
+export default {allRecipes, recipe, search}
