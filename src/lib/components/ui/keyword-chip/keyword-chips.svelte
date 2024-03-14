@@ -9,7 +9,7 @@
 
     {#if keywords.length > 0}
         {#each keywords as keyword}
-            <a href="#search={keyword}">
+            <a data-sveltekit-reload href="/home?query={keyword}">
                 <Chip title="{keyword}" variant="variant-ghost-tertiary"/>
             </a>
         {/each}

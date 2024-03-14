@@ -3,6 +3,7 @@
     import {Card, CardContent, CardHeader, CardFooter} from "$lib/components/ui/card";
     import {KeywordsChip} from '$lib/components/ui/keyword-chip'
     import type {Recipe} from "$lib/models/Recipe";
+    import {goto} from "$app/navigation";
 
     export let isDisabled = false
     export let recipe: Recipe;
@@ -37,7 +38,7 @@
         <DropDownMenuButton title="Do not interested" on:action={action}
                             variant="variant-ghost-error"></DropDownMenuButton>
     </DropDownMenu>
-    <a href="recipe/{recipe._id}">
+    <a data-sveltekit-reload href="/recipe/{recipe._id}">
         <CardHeader className="w-64 p-0 top-0 relative h-48">
             <div class="w-full h-32 absolute">
                 <img class="object-cover h-48 w-96 rounded-sm" src="{recipe.Images[0]}" width="64" height="32"
