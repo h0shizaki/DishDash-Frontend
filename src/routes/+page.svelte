@@ -1,11 +1,17 @@
 <script lang="ts">
-    import { Avatar } from '@skeletonlabs/skeleton';
+
 </script>
 
-<h1 class="text-3xl font-bold underline">
-    Hello world!
-</h1>
+<svelte:head>
+    <title>DishDash: Home</title>
+</svelte:head>
 
-<Avatar initials="KK" background="bg-primary-500" />
+<section class="h-full">
+<!--    <CardSkeleton text="test" className="w-64" />-->
+<!--    <CardSkeleton text="test" className="w-64" />-->
+<!--    <CardSkeleton text="test" className="w-64" />-->
+<!--    <RecipeCard isDisabled="{true}" recipe={recipe} />-->
 
+
+</section>
 

@@ -1,6 +1,7 @@
 import { join } from 'path';
 import { skeleton } from '@skeletonlabs/tw-plugin';
 import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography'
 
 /** @type {import('tailwindcss').Config} */
 
@@ -18,7 +19,9 @@ export default {
     skeleton({
 		  themes: { preset: [ "wintry" ] }
 	  }),
-    forms
+    forms,
+    typography,
+
   ],
 }
 
