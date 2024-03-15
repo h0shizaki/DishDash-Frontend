@@ -11,6 +11,7 @@ async function login(username: string , password: string) {
 
     const responsedUser: User = res.data.body.user as User
     const responsedToken : string = res.data.body.token
+    console.log(responsedToken)
 
     user.set(responsedUser)
     token.set(responsedToken)
@@ -27,13 +28,10 @@ async function register(registerUser: User) {
     return res.data.body.user
 }
 
-async function logout() {
+function logout() {
     console.log('Logged out')
     token.set(null)
     user.set(null)
-    token.set(null)
-    user.set(null)
-    await goto('/' , {state: {message: 'Sign out success!'}})
 }
 
 function refresh(user1: User|null , token1 : string|null) {

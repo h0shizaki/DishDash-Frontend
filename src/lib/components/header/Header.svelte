@@ -28,6 +28,11 @@
                             Bookmark
                         </a>
                     </li>
+                    <li class="flex flex-col justify-center">
+                        <a href="/explore" class="text-gray-900 rounded hover:text-gray-600">
+                            Explore
+                        </a>
+                    </li>
                 {/if}
             </ul>
             {#if $user != null}

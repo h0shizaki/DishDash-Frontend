@@ -32,7 +32,7 @@
             isStreaming = true
             const resp = await data.next()
             recipes = [...recipes, ...resp]
-            console.log(recipes)
+            // console.log(recipes)
             isStreaming = false
         }
         if (query != null) {
@@ -48,10 +48,10 @@
         // await goto(`/home?query=${query}`)
         isLoading = true
         recipes = []
-        console.log(e)
+        // console.log(e)
         const resp = await RecipeService.search(query, 110)
         recipes = resp['data']['results']
-        console.log(recipes)
+        // console.log(recipes)
         isSearch = true
         isLoading = false
 
@@ -69,9 +69,8 @@
 {:else if isError}
     <Error placeholder="Sorry, we are facing network error." message="Please try again later."/>
 {:else}
-    <span class="h3 p-4 my-5 text-indigo-600 font-semibold">Let's explore your next dishes</span>
+    <span class="h3 p-4 my-5 text-indigo-600 font-semibold mb-2">The recipes for you</span>
     <SearchBar on:search={onSearch} bind:query={query}/>
-    <!--<button on:click={next}>TEST</button>-->
     <RecipeCards recipes={recipes}/>
     {#if recipes.length === 0}
         <div class="w-full mx-auto h3 text-indigo-600 flex justify-center items-center">

@@ -5,6 +5,8 @@ import {authstore} from "$lib/stores/auth";
 
 
 export const load: PageLoad = async () => {
+    // if (authstore.getUser() === null) redirect(307, '/login?message="Please login to continue"')
+
     let recipes: Array<Recipe> = [];
     let isError = false
     let isLoading = true
@@ -16,13 +18,11 @@ export const load: PageLoad = async () => {
         const userId = currentUser?._id
         const response = await RecipeService.allRecipes(userId, pageSize, start)
         isLoading = false
-        // console.log()
         recipes = response['data']['results']
     } catch (e) {
-        // console.log(e)
         isLoading = false
         isError = true
-        // return await goto('/network-error')
+        // return redirect(307, '/network-error');
     }
 
     const next = async (): Promise<Array<Recipe>> => {
