@@ -51,6 +51,9 @@ async function update(requestUser : User) {
     const _id: string = getUser()._id
     if(!_id) return
     const res = await AuthService.update(_id, requestUser)
+    const responsedUser: User = res.data.body.user as User
+    user.set(responsedUser)
+
     return res.data.body
 
 }

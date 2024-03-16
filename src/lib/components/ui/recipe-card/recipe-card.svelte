@@ -4,12 +4,25 @@
     import {KeywordsChip} from '$lib/components/ui/keyword-chip'
     import type {Recipe} from "$lib/models/Recipe";
     import {goto} from "$app/navigation";
+    import {authstore} from "$lib/stores/auth";
 
     export let isDisabled = false
     export let recipe: Recipe;
-    const action = () => {
+    const action = async() => {
         console.log(recipe._id)
-        // TODO: Update user behaviour on server
+        try {
+            if (recipe._id != null) {
+                const currentUser = authstore.getUser()
+                if (!currentUser) return
+
+                currentUser.uninterestedCategory.push(...recipe.Keywords)
+                const updateResult = await authstore.update(currentUser)
+                console.log(currentUser, updateResult)
+
+            }
+        } catch (e) {
+            console.error(e)
+        }
         isDisabled = true;
     }
 

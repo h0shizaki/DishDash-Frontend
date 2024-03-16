@@ -50,7 +50,7 @@
             <div class="flex flex-col w-full md:w-1/3">
                 <Carousel imageUrls="{recipe.Images}"/>
                 <div class="mt-2.5">
-                    <ReactionBar/>
+                    <ReactionBar recipeId="{recipe._id}"/>
                 </div>
             </div>
 

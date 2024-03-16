@@ -16,4 +16,8 @@ const search = async (query: string, pageSize = 10, start = 0) => {
 const explore = async (pageSize = 10) => {
     return apiClient.get(`/explore?search_size=${pageSize}`)
 }
-export default {allRecipes, recipe, explore, search}
+
+const favorite = async (userId : string) =>{
+    return apiClient.get(`/favorite?_id=${userId}`)
+}
+export default {allRecipes, recipe, explore, search , favorite}

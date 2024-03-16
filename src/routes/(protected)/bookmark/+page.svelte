@@ -6,10 +6,10 @@
     import Spinner from "$lib/components/ui/Spinner.svelte";
     import Error from "$lib/components/ui/Error.svelte";
 
-    const mockBookmark: Bookmark = {
-        _id: '123',
+    const favBookmark: Bookmark = {
+        _id: 'favorite',
         title: 'Favorite',
-        recipes: [{'recipeId': '222', rating: 5} as RecipeRecord]
+        recipes: []
     }
     let bookmarks = []
     let isLoading = true
@@ -38,8 +38,10 @@
     <Error placeholder="Sorry, we are facing network error." message="Please try again later."/>
 {:else}
     <div class=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-5 mx-auto">
+        <Folder folder="{favBookmark}" />
         {#each bookmarks as bookmark}
             <Folder folder="{bookmark}"/>
+
         {/each}
     </div>
 {/if}

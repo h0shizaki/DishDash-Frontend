@@ -4,10 +4,22 @@
     import type {ModalSettings} from "@skeletonlabs/skeleton";
     import { getModalStore } from '@skeletonlabs/skeleton';
     import recipeService from "$lib/api/RecipeService";
+    import {authstore} from "$lib/stores/auth";
     const modalStore = getModalStore();
     export let justify = 'justify-start'
     export let recipeId = ''
-    export let likeAction = () => {
+    const currentUser = authstore.getUser()
+    const likedList = currentUser?.interestedRecipe
+    console.log(likedList, recipeId)
+    const isLiked = likedList?.includes(recipeId)
+
+    export let likeAction = async() => {
+        if (!currentUser) return
+        currentUser?.interestedRecipe.push(recipeId)
+        const updateResult = await authstore.update(currentUser)
+        console.log(updateResult)
+        // authstore.update(currentUser)
+
     }
 
     export let bookmarkAction = () => {
@@ -29,7 +41,7 @@
 </script>
 
 <div class="flex flex-row gap-2 {justify}">
-    <Chip variant="variant-soft" title="" isActivable="{true}" isActive="{false}" action="{likeAction}"
+    <Chip variant="variant-soft" title="" isActivable="{true}" isActive="{isLiked}" action="{likeAction}"
           icon={Icons.Heart}/>
     <Chip variant="variant-soft" title="" isActivable="{true}" isActive="{false}" action="{bookmarkAction}"
           icon={Icons.Bookmark}/>
