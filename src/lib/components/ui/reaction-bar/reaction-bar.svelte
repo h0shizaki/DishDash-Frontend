@@ -2,28 +2,35 @@
     import {Icons} from '$lib/components/ui/icon'
     import {Chip} from '$lib/components/ui/keyword-chip'
     import type {ModalSettings} from "@skeletonlabs/skeleton";
-    import { getModalStore } from '@skeletonlabs/skeleton';
+    import {getModalStore} from '@skeletonlabs/skeleton';
     import recipeService from "$lib/api/RecipeService";
     import {authstore} from "$lib/stores/auth";
+
     const modalStore = getModalStore();
     export let justify = 'justify-start'
     export let recipeId = ''
     const currentUser = authstore.getUser()
     const likedList = currentUser?.interestedRecipe
-    console.log(likedList, recipeId)
     const isLiked = likedList?.includes(recipeId)
 
-    export let likeAction = async() => {
+    export let likeAction = async () => {
         if (!currentUser) return
-        currentUser?.interestedRecipe.push(recipeId)
-        const updateResult = await authstore.update(currentUser)
-        console.log(updateResult)
-        // authstore.update(currentUser)
-
+        if (isLiked == false) {
+            currentUser?.interestedRecipe.push(recipeId)
+            await authstore.update(currentUser)
+        }else{
+            const index = currentUser?.interestedRecipe.indexOf(recipeId)
+            if (index != null) {
+                console.log(currentUser?.interestedRecipe)
+                currentUser?.interestedRecipe.splice(index, 1)
+                console.log(currentUser?.interestedRecipe)
+                await authstore.update(currentUser)
+            }
+        }
     }
 
     export let bookmarkAction = () => {
-        
+
         const modal: ModalSettings = {
             title: 'Mark this recipe',
             body: '',
