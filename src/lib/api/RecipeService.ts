@@ -20,4 +20,8 @@ const explore = async (pageSize = 10) => {
 const favorite = async (userId : string) =>{
     return apiClient.get(`/favorite?_id=${userId}`)
 }
-export default {allRecipes, recipe, explore, search , favorite}
+
+const bookmarkSuggestion = async (bookmarkId: string , size: number) => {
+    return apiClient.get(`/bookmark/${bookmarkId}?search_size=${size}`)
+}
+export default {allRecipes, recipe, explore, search , favorite , bookmarkSuggestion}

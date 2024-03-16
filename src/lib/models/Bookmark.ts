@@ -1,6 +1,8 @@
+import type {Recipe} from "$lib/models/Recipe";
+
 export interface Bookmark {
     _id: string,
-    recipes: RecipeRecord[],
+    records: RecipeRecord[],
     title: string,
     thumbnail?: string,
 
@@ -8,6 +10,8 @@ export interface Bookmark {
 
 
 export interface RecipeRecord {
-    recipeId: string,
+    _id?: string
+    recipeId?: string,
+    recipe?: Recipe,
     rating: number
 }
