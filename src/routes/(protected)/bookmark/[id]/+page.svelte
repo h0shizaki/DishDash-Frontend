@@ -48,7 +48,7 @@
             <img src="{bookmark.thumbnail}"/>
         </div>
     {/if}
-    <div class="container px-3 py-2">
+    <div class="w-full mx-auto px-3 py-2">
         <span class="h3 text-blue-500 font-bold">{bookmark.title}({size}):</span>
         <RecipeRecords bind:bookmark={bookmark}></RecipeRecords>
         <span class="h3 text-blue-500 font-bold">Interesting Recipe for you</span>
