@@ -9,4 +9,15 @@ const recipe = async (recipeId: string) => {
     return  apiClient.get(`/recipe/${recipeId}`)
 }
 
-export default {allRecipes, recipe}
+const search = async (query: string, pageSize = 10, start = 0) => {
+    return apiClient.get(`/search_recipe?query=${query}&search_size=300&start=${start}&limit=${pageSize}`)
+}
+
+const explore = async (pageSize = 10) => {
+    return apiClient.get(`/explore?search_size=${pageSize}`)
+}
+
+const favorite = async (userId : string) =>{
+    return apiClient.get(`/favorite?_id=${userId}`)
+}
+export default {allRecipes, recipe, explore, search , favorite}

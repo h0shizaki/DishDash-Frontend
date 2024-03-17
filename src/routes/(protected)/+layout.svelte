@@ -6,6 +6,7 @@
     onMount(async () => {
         if($isLoggedIn){
             console.log("logged in")
+            // console.log(localStorage.getItem('token')?.toString())
         }else{
             return await goto('/login', {state: {message: 'Please login to continue.'}})
         }

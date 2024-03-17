@@ -4,12 +4,25 @@
     import {KeywordsChip} from '$lib/components/ui/keyword-chip'
     import type {Recipe} from "$lib/models/Recipe";
     import {goto} from "$app/navigation";
+    import {authstore} from "$lib/stores/auth";
 
     export let isDisabled = false
     export let recipe: Recipe;
-    const action = () => {
+    const action = async() => {
         console.log(recipe._id)
-        // TODO: Update user behaviour on server
+        try {
+            if (recipe._id != null) {
+                const currentUser = authstore.getUser()
+                if (!currentUser) return
+
+                currentUser.uninterestedCategory.push(...recipe.Keywords)
+                const updateResult = await authstore.update(currentUser)
+                console.log(currentUser, updateResult)
+
+            }
+        } catch (e) {
+            console.error(e)
+        }
         isDisabled = true;
     }
 
@@ -41,7 +54,7 @@
     <a data-sveltekit-reload href="/recipe/{recipe._id}">
         <CardHeader className="w-64 p-0 top-0 relative h-48">
             <div class="w-full h-32 absolute">
-                <img class="object-cover h-48 w-96 rounded-sm" src="{recipe.Images[0]}" width="64" height="32"
+                <img class="object-cover h-48 w-96 rounded-sm" src="{recipe.Images[0] }" height="32"
                      alt="dish image"/>
             </div>
         </CardHeader>

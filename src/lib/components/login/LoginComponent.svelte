@@ -6,6 +6,7 @@
 	import {goto} from "$app/navigation";
 	import { onMount } from 'svelte';
 	import {Alert} from "$lib/components/ui/alert";
+
 	let message = '';
 	onMount( () => {
 		if(history){
