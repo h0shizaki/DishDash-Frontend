@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.pcss';
 	import '../style.css';
-	import {AppShell} from '@skeletonlabs/skeleton';
+	import {AppShell, Toast} from '@skeletonlabs/skeleton';
 	import type {  ModalComponent } from '@skeletonlabs/skeleton';
 	import Header from '$lib/components/header/Header.svelte';
 	import { Modal } from '@skeletonlabs/skeleton';
@@ -14,13 +14,13 @@
 	initializeStores();
 	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
-
 	const modalRegistry: Record<string, ModalComponent> = {
-		modalBookmarkForm: { ref: ModalBookmarkForm },
+		'bookmarkForm': { ref: ModalBookmarkForm , props: {userCreatedFolders: [] } },
 	};
 </script>
 
 <Modal components={modalRegistry} />
+<Toast />
 
 
 <AppShell >

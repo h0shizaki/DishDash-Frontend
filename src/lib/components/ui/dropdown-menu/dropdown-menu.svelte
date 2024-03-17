@@ -17,7 +17,7 @@
 </script>
 
 
-<button class="{btnClass}" use:popup={popupClick}>
+<button class="{btnClass} p-0.5 rounded-lg m-1.5" use:popup={popupClick}>
     {#if text}
         {text}
     {:else}
@@ -25,7 +25,7 @@
     {/if}
 </button>
 
-<div class="card p-4 max-w-sm z-10" data-popup="{popupClick.target}">
+<div class="card p-4 max-w-sm z-30 bg-white shadow-lg " data-popup="{popupClick.target}">
     <div class="grid grid-cols-1 gap-2 w-36">
         <slot />
         <button id="will-close" class="btn variant-ghost">Close</button>

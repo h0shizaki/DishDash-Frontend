@@ -16,7 +16,6 @@ apiClient.interceptors.request.use(
     (req) => {
         const token = localStorage.getItem('token')
         if (token) {
-            // console.log(token)
             req.headers['Authorization'] = `Bearer ${token.slice(1,-1)}`
         }
         return req
