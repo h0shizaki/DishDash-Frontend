@@ -7,7 +7,10 @@ import {
     Bookmark,
     Star,
     StarHalf,
-    Search
+    Search,
+    Crown,
+    Award,
+    Trophy,
 } from 'lucide-svelte'
 
 export type Icon = LucideIcon
@@ -20,5 +23,8 @@ export const Icons = {
     Bookmark: Bookmark,
     Star: Star,
     StarHalf: StarHalf,
-    Search: Search
+    Search: Search,
+    Crown: Crown,
+    Award: Award,
+    Trophy: Trophy
 }

@@ -2,6 +2,7 @@
 import type {Bookmark} from "$lib/models/Bookmark";
 
 export let folder : Bookmark;
+$: size = folder.records.length
 </script>
 
 
@@ -13,7 +14,7 @@ export let folder : Bookmark;
     {/if}
     <div class="flex flex-col justify-between p-4 leading-normal w-full">
         {#if folder.title}
-            <span class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 h-16 ">{folder.title}</span>
+            <span class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 h-16 ">{folder.title} ({size})</span>
         {:else}
             <div class="placeholder animate-pulse h-16"></div>
         {/if}

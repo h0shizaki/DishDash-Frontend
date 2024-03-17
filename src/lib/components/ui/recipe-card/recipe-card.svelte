@@ -38,7 +38,14 @@
                 if (!currentUser) return
 
                 currentUser.uninterestedCategory.push(...recipe.Keywords)
+                let index = currentUser.interestedRecipe.indexOf(recipe._id)
+                if(index != null){
+                    currentUser.interestedRecipe.splice(index,1)
+                    isFavorited = false
+                }
+                currentUser.uninterestedCategory = [...(new Set(currentUser.uninterestedCategory))]
                 const updateResult = await authstore.update(currentUser)
+
                 console.log(currentUser, updateResult)
 
             }
@@ -59,7 +66,7 @@
 
 <Card className="w-64 mx-auto my-2 h-full relative " >
     {#if isDisabled}
-        <div class="absolute h-full w-full bg-black/90 z-20 ">
+        <div class="absolute h-full w-full bg-black/90 z-10 ">
             <span class="bg-black w-full text-white block text-center font-semibold py-3">You've removed this recipe.</span>
             <span class="absolute w-full bottom-1/2 mx-auto text-center text-blue-500 decoration underline cursor-pointer"
                   on:click={() => {isDisabled = !isDisabled}}>
@@ -68,15 +75,16 @@
         </div>
     {/if}
     {#if isFavorited}
-        <div class="absolute h-full w-full z-10 ">
-            <span class="absolute w-full top-1 left-1 cursor-pointer">
+        <div class="absolute z-10 ">
+            <span class="absolute w-full top-1 left-1 cursor-pointer ">
+                <button class="variant-soft-surface p-0.5 rounded-lg">
                 <Icons.Star  fill="#FFFF00" size="{32}" strokeWidth="{1}" />
-
+                </button>
             </span>
         </div>
     {/if}
 
-    <DropDownMenu btnClass="float-right p-2 relative z-10" popupClick={popupClick}>
+    <DropDownMenu btnClass="float-right p-2 relative z-30" popupClick={popupClick}>
         {#if !isFavorited}
         <DropDownMenuButton title="Favorite" on:action={fav}
                             variant="variant-ghost-success"></DropDownMenuButton>

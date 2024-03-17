@@ -15,3 +15,9 @@ export interface RecipeRecord {
     recipe?: Recipe,
     rating: number
 }
+
+export interface RecordPayload {
+    _id: string ;
+    rating: number;
+    recipe: string
+}

@@ -2,44 +2,99 @@
     import {DropDownMenu, DropDownMenuButton} from "$lib/components/ui/dropdown-menu";
     import {Card, CardContent, CardHeader, CardFooter} from "$lib/components/ui/card";
     import {KeywordsChip} from '$lib/components/ui/keyword-chip'
-    import type {RecipeRecord} from "$lib/models/Bookmark";
+    import type {RecipeRecord, RecordPayload} from "$lib/models/Bookmark";
+    import type {ModalSettings, ToastSettings} from "@skeletonlabs/skeleton";
+    import {getModalStore} from '@skeletonlabs/skeleton';
+    import bookmarkService from "$lib/api/BookmarkService";
+    import {getToastStore} from '@skeletonlabs/skeleton';
+    import Spinner from "$lib/components/ui/Spinner.svelte";
+    import {Icons} from '$lib/components/ui/icon'
+    import {Badge} from "$lib/components/ui/badge";
 
+    const toastStore = getToastStore();
+    const modalStore = getModalStore();
     export let isDisabled = false
+
+    let isProcessing = false;
+    export let bookmarkId: string;
     export let record: RecipeRecord;
-    let recipe = record.recipe
+    $: recipe = record.recipe
+
+
+    const t: ToastSettings = {
+        message: 'Yippies! Bookmark updated!',
+        timeout: 5000,
+        background: 'variant-filled-success',
+
+    };
+
     const remove = async () => {
-        isDisabled = true
-        // console.log(recipe._id)
-        // try {
-        //     if (recipe._id != null) {
-        //         const currentUser = authstore.getUser()
-        //         if (!currentUser) return
-        //
-        //         currentUser.uninterestedCategory.push(...recipe.Keywords)
-        //         const updateResult = await authstore.update(currentUser)
-        //         console.log(currentUser, updateResult)
-        //
-        //     }
-        // } catch (e) {
-        //     console.error(e)
-        // }
-        // isDisabled = true;
+
+        const modal: ModalSettings = {
+            type: 'confirm',
+            title: 'Please Confirm',
+            body: 'Are you sure you wish to proceed?',
+            // TRUE if confirm pressed, FALSE if cancel pressed
+            response: async (r: boolean) => {
+                console.log(r)
+                isDisabled = r
+
+                const recipeId = recipe?._id
+                if (r && recipe != undefined) {
+
+                    const payload = {
+                        "bookmarkId": bookmarkId,
+                        "recipeId": recipeId,
+                    }
+
+                    console.log(payload)
+                    const resp = await bookmarkService.removeBookmarkRecord(bookmarkId, recipeId!)
+                    console.log(resp.status === 200)
+                    if (resp.status === 200) {
+                        toastStore.trigger(t);
+                    }
+                }
+            },
+        };
+
+        modalStore.trigger(modal);
+
+    }
+
+    const updateRating = async (increment: boolean) => {
+        try {
+            isProcessing = true
+            const recipeId = recipe?._id;
+            if (record.rating > 5 || recipeId == undefined || record._id == undefined) return;
+            const newRating = increment ? record.rating + 1 : record.rating - 1;
+            console.log(recipeId, newRating)
+            record.rating = newRating
+            const payload: RecordPayload = {
+                "_id": record._id,
+                "recipe": recipeId,
+                "rating": newRating
+            };
+
+            const resp = await bookmarkService.updateBookmarkRecord(bookmarkId, payload);
+            if (resp.status === 200) {
+                toastStore.trigger(t);
+            }
+            isProcessing = false
+        } catch (e) {
+            console.error(e)
+            isProcessing = false
+        }
+
     }
 
     const addRating = async () => {
-        if (record.rating >= 5) return
-
-        record.rating++
-        //TODO: update to db
+        console.log('up')
+        await updateRating(true)
     }
 
     const downRating = async () => {
-        if (record.rating <= 1) return
-
-        record.rating--
-
-        //TODO: update to db
-
+        console.log('down')
+        await updateRating(false)
     }
 
     const popupClick = {
@@ -49,22 +104,25 @@
         closeQuery: '#will-close'
     }
 
+
 </script>
 
-<Card className="w-64 mx-auto my-2 h-full relative">
-    {#if isDisabled}
-        <div class="absolute h-full w-full bg-black/90 z-20 ">
-            <!--{text}-->
-            <span class="bg-black w-full text-white block text-center font-semibold py-3">You've removed this recipe.</span>
-            <span class="absolute w-full bottom-1/2 mx-auto text-center text-blue-500 decoration underline cursor-pointer"
-                  on:click={() => {isDisabled = !isDisabled}}>
-                undo
-            </span>
+
+<Card className="w-64 mx-auto my-2 h-full relative {isDisabled? 'hidden': '' }">
+    <!--    <div class="relative">{record.rating}</div>-->
+    {#if isProcessing}
+        <div class="absolute h-full w-full bg-black/10 z-10 ">
+            <Spinner/>
         </div>
     {/if}
-    <div class="relative">{record.rating}</div>
 
-    <DropDownMenu btnClass="float-right p-2 relative z-10" popupClick={popupClick}>
+    <div class="absolute z-10 ">
+            <span class="absolute w-full top-1 left-1 cursor-pointer ">
+                <Badge bind:record={record}></Badge>
+            </span>
+    </div>
+
+    <DropDownMenu btnClass="float-right p-2 relative z-30" popupClick={popupClick}>
         {#if record.rating < 5}
             <DropDownMenuButton title="Up Rating" on:action={addRating}
                                 variant="variant-ghost-success"></DropDownMenuButton>

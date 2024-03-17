@@ -5,6 +5,7 @@
     import Error from "$lib/components/ui/Error.svelte";
     import {onMount} from "svelte";
     import RecipeService from "$lib/api/RecipeService";
+    import {UnlimitedScrolling} from "$lib/components/unlimited-scrolling";
 
 
     let isLoading = true
@@ -12,10 +13,23 @@
     let recipes = []
 
     onMount(async () => {
-        const resp = await RecipeService.explore(220)
+        const resp = await RecipeService.explore(110)
         recipes = resp['data']['results']
         isLoading = false
     })
+
+    let isStreaming = false
+    const loadMore = async () => {
+        try {
+            isStreaming = true
+
+            const resp = await RecipeService.explore(220)
+            recipes = [...recipes, ...resp['data']['results']]
+            isStreaming = false
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
 </script>
 
@@ -31,5 +45,13 @@
 {:else}
     <span class="h3 p-4 my-5 text-indigo-600 font-semibold mb-2">Explore</span>
     <RecipeCards recipes={recipes}/>
-
+    {#if !isStreaming }
+        <UnlimitedScrolling
+                on:action={loadMore}
+        />
+    {:else}
+        <div class="mt-3">
+            <Spinner/>
+        </div>
+    {/if}
 {/if}
