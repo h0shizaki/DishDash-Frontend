@@ -28,4 +28,8 @@ const bookmarkSuggestion = async (bookmarkId: string , size: number) => {
 const spellCorrection = async (word: string) => {
     return apiClient.get(`/recipe/correction?text=${word}`)
 }
-export default {allRecipes, recipe, explore, search , favorite , bookmarkSuggestion, spellCorrection}
+
+const ragLLM = async (word: string) => {
+    return apiClient.get(`/lang-chain?text=Can you give answer me that, ${word} also give me a recipe id if it possible`)
+}
+export default {allRecipes, recipe, explore, search , favorite , bookmarkSuggestion, spellCorrection, ragLLM}
