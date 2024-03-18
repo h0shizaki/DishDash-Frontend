@@ -24,4 +24,8 @@ const favorite = async (userId : string) =>{
 const bookmarkSuggestion = async (bookmarkId: string , size: number) => {
     return apiClient.get(`/bookmark/${bookmarkId}?search_size=${size}`)
 }
-export default {allRecipes, recipe, explore, search , favorite , bookmarkSuggestion}
+
+const spellCorrection = async (word: string) => {
+    return apiClient.get(`/recipe/correction?text=${word}`)
+}
+export default {allRecipes, recipe, explore, search , favorite , bookmarkSuggestion, spellCorrection}
