@@ -7,6 +7,7 @@
     import {authstore} from "$lib/stores/auth";
     import {CreateFolder} from "$lib/components/ui/create-folder"
     import type {FolderPage} from "./+page";
+    import type {Bookmark} from "$lib/models/Bookmark";
 
     export let data: FolderPage;
     console.log(data.bookmarks)
@@ -20,6 +21,13 @@
             const resp = await BookmarkService.getAllBookmarks()
             isLoading = false
             bookmarks = resp.data
+            bookmarks.sort( (a:Bookmark ,b:Bookmark) => {
+                let scoreA = 0
+                a.records.forEach( (rec) => {scoreA += rec.rating})
+                let scoreB = 0
+                b.records.forEach( (rec) => {scoreB += rec.rating})
+                return Number(scoreB/ Math.max(b.records.length,1)).toFixed(2) - Number(scoreA/Math.max(a.records.length,1)).toFixed(2)
+            } )
         } catch (e) {
             console.error(e)
             isLoading = false
@@ -37,7 +45,7 @@
 {:else if isError}
     <Error placeholder="Sorry, we are facing network error." message="Please try again later."/>
 {:else}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-5 mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-5 mx-auto w-full">
 
         <a href="/bookmark/favorite">
             <div class="flex flex-col w-auto items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row hover:bg-gray-100">

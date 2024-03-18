@@ -6,10 +6,9 @@
     import Spinner from "$lib/components/ui/Spinner.svelte";
     import Error from "$lib/components/ui/Error.svelte";
     import {onMount} from "svelte";
-    import SearchBar from '$lib/components/ui/Searchbar.svelte'
+    import {SearchBox} from '$lib/components/ui/search-bar/'
     import {page} from "$app/stores";
     import RecipeService from "$lib/api/RecipeService";
-    import {goto} from "$app/navigation";
 
     let isLoading = true
     let isError = false
@@ -70,7 +69,9 @@
     <Error placeholder="Sorry, we are facing network error." message="Please try again later."/>
 {:else}
     <span class="h3 p-4 my-5 text-indigo-600 font-semibold mb-2">The recipes for you</span>
-    <SearchBar on:search={onSearch} bind:query={query}/>
+    <div class="w-1/3 mx-auto">
+        <SearchBox on:search={onSearch} bind:query={query}/>
+    </div>
     <RecipeCards recipes={recipes}/>
     {#if recipes.length === 0}
         <div class="w-full mx-auto h3 text-indigo-600 flex justify-center items-center">
