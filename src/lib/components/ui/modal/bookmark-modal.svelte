@@ -1,24 +1,40 @@
 <script lang="ts">
     import type {SvelteComponent} from 'svelte';
-    import InputChip from './input-chips.svelte'
     // Stores
-    import { getModalStore} from '@skeletonlabs/skeleton';
+    import {getModalStore} from '@skeletonlabs/skeleton';
+    import type {Bookmark} from "$lib/models/Bookmark";
+    import {onMount} from "svelte";
+    import bookmarkService from "$lib/api/BookmarkService";
     // Props
     /** Exposes parent props to this component. */
     export let parent: SvelteComponent;
-    let selectedFolders = []
-    let userCreatedFolder = []
+
+    // export let userCreatedFolders: Bookmark[] = []
+
     const modalStore = getModalStore();
+
+    let bookmarks = []
+    onMount(async () => {
+        try{
+            const resp = await bookmarkService.getAllBookmarks(true)
+            console.log(resp)
+            bookmarks = resp.data
+        }catch(e){
+            console.error(e)
+        }
+    })
+
 
     // Form Data
     const formData = {
-        // name: '',
         rating: 1,
+        bookmarkId: ''
     };
 
     // We've created a custom submit function to pass the response and close the modal.
     function onFormSubmit(): void {
-        if ($modalStore[0].response) $modalStore[0].response({formData, selectedFolders} );
+        // if ($modalStore[0].response) $modalStore[0].response({formData, selectedFolders} );
+        if ($modalStore[0].response) $modalStore[0].response(formData);
         modalStore.close();
     }
 
@@ -38,8 +54,18 @@
         <form class="modal-form {cForm}">
             <label class="label">
                 <span>Folder name</span>
-<!--                <input class="input" type="text" bind:value={formData.name} placeholder="Enter name..."/>-->
-                <InputChip bind:inputChipList={selectedFolders} userFolders={userCreatedFolder} />
+                <select bind:value={formData.bookmarkId} class="select" required>
+                    {#if bookmarks.length === 0}
+                        <option value="" selected>Read later</option>
+                    {:else}
+                        <option value="" selected>Select your folder</option>
+                    {/if}
+                    {#each bookmarks as folder}
+                        <option value={folder._id}>
+                            {folder.title}
+                        </option>
+                    {/each}
+                </select>
             </label>
             <label class="label">
                 <span>Rating</span>
@@ -55,7 +81,8 @@
         </form>
         <!-- prettier-ignore -->
         <footer class="modal-footer {parent.regionFooter}">
-            <button class="btn {parent.buttonNeutral}" on:click={parent.onClose}>{parent.buttonTextCancel}</button>
+            <button class="btn {parent.buttonNeutral}"
+                    on:click={parent.onClose}>{parent.buttonTextCancel}</button>
             <button class="btn {parent.buttonPositive}" on:click={onFormSubmit}>Submit Form</button>
         </footer>
     </div>

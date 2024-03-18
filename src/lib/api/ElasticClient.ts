@@ -13,6 +13,7 @@ const apiClient: AxiosInstance = axios.create({
 
 apiClient.interceptors.request.use(
     (req) => {
+
         const token = localStorage.getItem('token')
         if (token) {
             req.headers['Authorization'] = `Bearer ${token}`
@@ -30,8 +31,11 @@ apiClient.interceptors.response.use(
     },
     (err: AxiosError) => {
         if (err.response?.status === 403) {
-            return goto('/login', {state: {message: 'Please login to continue.'}})
-        }
+            let message = 'Please login to continue.'
+            if(err.response?.data.body.message) {
+                message = err.response?.data.body.message
+            }
+            return goto('/login', {state: {message: message}})        }
         if (err.response?.status === 404) {
             return err
         }

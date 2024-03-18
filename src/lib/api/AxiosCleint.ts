@@ -1,6 +1,7 @@
 import type {AxiosError, AxiosInstance} from 'axios'
 import {goto} from '$app/navigation';
 import axios from 'axios'
+import {authstore} from "$lib/stores/auth";
 
 const apiClient: AxiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_URL,
@@ -15,7 +16,7 @@ apiClient.interceptors.request.use(
     (req) => {
         const token = localStorage.getItem('token')
         if (token) {
-            req.headers['Authorization'] = `Bearer ${token}`
+            req.headers['Authorization'] = `Bearer ${token.slice(1,-1)}`
         }
         return req
     },
@@ -30,7 +31,12 @@ apiClient.interceptors.response.use(
     },
     (err: AxiosError) => {
         if (err.response?.status === 403) {
-            return goto('/login', {state: {message: 'Please login to continue.'}})
+            let message = 'Please login to continue.'
+            console.log('1234')
+            if(err.response?.data.body.message) message = err.response?.data.body.message
+            authstore.logout()
+
+            return goto('/login', {state: {'message': message} })
         }
         if (err.response?.status === 404) {
             return err
